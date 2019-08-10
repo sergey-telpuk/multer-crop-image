@@ -1,0 +1,61 @@
+version: '3.3'
+
+services:
+
+  nestjs:
+    image: node:latest
+    container_name: nestjs
+    command: npm run start
+    env_file:
+      - .env.app
+    ports:
+      - 3000:3000
+    working_dir: /app
+    volumes:
+      - ./src:/app
+
+    nestjs-nginx:
+      build:
+        context: ./docker/nginx
+        dockerfile: Dockerfile
+      container_name: nestjs-nginx-storage
+      restart: always
+      logging:
+        driver: none
+      volumes:
+        - ./storage/ftp:/app
+      ports:
+        - 85:80
+
+    nestjs-storage-ftp:
+      image: stilliard/pure-ftpd
+      container_name: nestjs-ftp-storage
+      restart: always
+      logging:
+        driver: none
+      environment:
+        FTP_USER_NAME: app
+        FTP_USER_PASS: secret
+        FTP_USER_HOME: /app
+      volumes:
+        - ./storage/ftp:/app
+
+    nestjs-aws-s3:
+      build:
+        context: ./docker/aws
+        dockerfile: Dockerfile
+      container_name: nestjs-aws-storage
+      restart: always
+      logging:
+        driver: none
+      ports:
+        - 4563-4584:4563-4584
+        - 8255:8080
+      environment:
+        - SERVICES=s3
+        - DEFAULT_REGION=eu-west-2
+        - DEBUG=1
+        - DATA_DIR=/tmp/localstack/data
+        - PORT_WEB_UI=8080
+      volumes:
+        - "./storage/aws:/tmp/localstack"
