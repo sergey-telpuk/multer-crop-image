@@ -11,5 +11,5 @@
     "baseUrl": "./",
     "incremental": true
   },
-  "exclude": ["node_modules", "dist","certs"]
+  "exclude": ["node_modules", "dist","certs","uploads"]
 }

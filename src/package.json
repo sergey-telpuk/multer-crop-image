@@ -8,7 +8,7 @@
     "build": "rimraf dist && tsc -p tsconfig.build.json",
     "format": "prettier --write \\\"src/**/*.ts\\\" \\\"test/**/*.ts\\\"",
     "start": "ts-node -r tsconfig-paths/register src/main.ts",
-    "start:dev": "tsc-watch -p tsconfig.build.json --onSuccess \\\"node dist/main.js\\\"",
+    "start:dev": "tsc-watch -p tsconfig.build.json --onSuccess \"node dist/main.js\"",
     "start:debug": "tsc-watch -p tsconfig.build.json --onSuccess \\\"node --inspect-brk dist/main.js\\\"",
     "start:prod": "node dist/main.js",
     "lint": "tslint -p tsconfig.json -c tslint.json",
@@ -19,15 +19,26 @@
     "test:e2e": "jest --config test/jest-e2e.json"
   },
   "dependencies": {
-    "@nestjs/common": "^6.0.4",
-    "@nestjs/core": "^6.0.4",
-    "@nestjs/microservices": "^6.0.4",
-    "@nestjs/platform-express": "^6.0.4",
-    "@nestjs/platform-fastify": "^6.5.3",
-    "@nestjs/websockets": "^6.0.4",
+    "@nestjs/common": "^6.10.14",
+    "@nestjs/core": "^6.10.14",
+    "@nestjs/microservices": "^6.10.14",
+    "@nestjs/platform-express": "^6.10.14",
+    "@nestjs/platform-fastify": "^6.10.14",
+    "@nestjs/swagger": "^4.1.14",
+    "@nestjs/websockets": "^6.10.14",
+    "aws-sdk": "^2.606.0",
+    "class-transformer": "^0.2.3",
+    "class-validator": "^0.11.0",
+    "fastify-multer": "^1.5.2",
+    "fastify-multipart": "^1.0.4",
+    "fs": "0.0.1-security",
+    "multer-ftp": "^1.2.0",
+    "multer-s3": "^2.9.0",
+    "path": "^0.12.7",
     "reflect-metadata": "0.1.13",
     "rimraf": "2.6.3",
-    "rxjs": "6.4.0"
+    "rxjs": "6.4.0",
+    "sharp": "^0.24.0"
   },
   "devDependencies": {
     "@nestjs/testing": "6.1.1",
@@ -43,7 +54,7 @@
     "tsc-watch": "2.2.1",
     "tsconfig-paths": "3.8.0",
     "tslint": "5.16.0",
-    "typescript": "3.4.3"
+    "typescript": "3.5.1"
   },
   "jest": {
     "moduleFileExtensions": [

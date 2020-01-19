@@ -6,7 +6,7 @@ import {TYPE_STORAGE_IMAGE} from "./config/global.env";
 import {StorageFactory} from "./storages/cloud/storage.factory";
 
 export const CropMulterFactory: FactoryProvider = {
-  provide: 'ICropAvatar',
+  provide: 'IUploadImage',
   useFactory: () => {
     return StorageFactory.createStorageFromType(TYPE_STORAGE_IMAGE);
   },

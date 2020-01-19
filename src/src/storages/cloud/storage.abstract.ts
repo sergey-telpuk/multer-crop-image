@@ -1,6 +1,6 @@
-import uuid4 from 'uuid/v4';
-import fs from 'fs';
-import sharp from 'sharp';
+import * as uuid4 from 'uuid/v4';
+import * as fs from 'fs';
+import * as sharp from 'sharp';
 import {CropQueryDto} from "../dto/crop.query.dto";
 import {IUploadImage} from "../interfaces/upload.image.interface";
 
@@ -58,10 +58,10 @@ export abstract class StorageAbstract implements IUploadImage {
             if (Object.keys(this.croppedPayload).length !== 0) {
                 const {cw, ch, cl, ct} = this.croppedPayload;
                 readStream = readStream.pipe(sharp().extract({
-                    left: cl,
-                    top: ct,
-                    width: cw,
-                    height: ch,
+                    left: parseInt(String(cl),10),
+                    top: parseInt(String(ct),10),
+                    width: parseInt(String(cw),10),
+                    height: parseInt(String(ch),10),
                 }));
             }
 

@@ -1,5 +1,5 @@
-### Storage FTP | AWS
-TYPE_STORAGE=AWS
+### Storage FTP | AWS | LOCAL
+TYPE_STORAGE=LOCAL
 
 # FTP storage(only for testing)
 FTP_STORAGE_BASE_PATH=/app

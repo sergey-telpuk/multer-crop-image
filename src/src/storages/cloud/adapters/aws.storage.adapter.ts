@@ -1,7 +1,7 @@
-import AwsStorage from 'multer-s3';
-import fs from 'fs';
-import AwsS3 from 'aws-sdk/clients/s3';
-import path from 'path';
+import * as AwsStorage from 'multer-s3';
+import * as fs from 'fs';
+import * as AwsS3 from 'aws-sdk/clients/s3';
+import * as path from 'path';
 import {Options, StorageEngine} from 'fastify-multer/lib/interfaces';
 import {StorageAbstract} from '../storage.abstract';
 import multer from 'fastify-multer';

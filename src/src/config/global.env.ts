@@ -1,7 +1,7 @@
-
 export const enum TYPE_STORAGE {
     AWS = 'AWS',
     FTP = 'FTP',
+    LOCAL = 'LOCAL',
 }
 
 export const TYPE_STORAGE_IMAGE = process.env.TYPE_STORAGE;
@@ -28,5 +28,3 @@ export const AWS_STORAGE = {
     AWS_S3_FORCE_PATH_STYLE: JSON.parse(process.env.AWS_S3_FORCE_PATH_STYLE),
     AWS_S3_BUCKET_ENDPOINT: JSON.parse(process.env.AWS_S3_BUCKET_ENDPOINT),
 };
-
-export const AVATAR_URL =  process.env.AVATAR_URL;
