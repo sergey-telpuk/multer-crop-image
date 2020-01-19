@@ -5,8 +5,8 @@ services:
   nestjs:
     image: node:latest
     container_name: nestjs
-#    command: npm run start:dev
-    command: tail -f /dev/null
+    command: npm run start:dev
+#    command: tail -f /dev/null
     env_file:
       - .env.app
     ports:

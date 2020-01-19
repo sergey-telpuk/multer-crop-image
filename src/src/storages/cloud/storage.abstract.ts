@@ -1,7 +1,8 @@
+import { CropQueryDto } from '../dto/crop.query.dto';
 import * as uuid4 from 'uuid/v4';
 import * as fs from 'fs';
 import * as sharp from 'sharp';
-import {CropQueryDto} from "../dto/crop.query.dto";
+import { StorageException } from '../exceptions/storage.exception';
 import {IUploadImage} from "../interfaces/upload.image.interface";
 
 export abstract class StorageAbstract implements IUploadImage {
@@ -49,28 +50,34 @@ export abstract class StorageAbstract implements IUploadImage {
         });
     }
 
-    protected async resize(file: string): Promise<string> {
-        return new Promise((resolve, reject) => {
-            const tmpFile = '/tmp/' + uuid4();
-            let readStream = fs.createReadStream(file as string);
-            const writeStream = fs.createWriteStream(tmpFile);
+    protected async resize(file: string): Promise<any> {
+        try {
+            return await new Promise((resolve, reject) => {
+                const tmpFile = '/tmp/' + uuid4();
+                let readStream = fs.createReadStream(file as string);
+                const writeStream = fs.createWriteStream(tmpFile);
 
-            if (Object.keys(this.croppedPayload).length !== 0) {
-                const {cw, ch, cl, ct} = this.croppedPayload;
-                readStream = readStream.pipe(sharp().extract({
-                    left: parseInt(String(cl),10),
-                    top: parseInt(String(ct),10),
-                    width: parseInt(String(cw),10),
-                    height: parseInt(String(ch),10),
-                }));
-            }
+                if (Object.keys(this.croppedPayload).length !== 0) {
+                    const {cw, ch, cl, ct} = this.croppedPayload;
+                    const sharpPipe = sharp().extract({
+                        left: parseInt(String(cl),10),
+                        top: parseInt(String(ct),10),
+                        width: parseInt(String(cw),10),
+                        height: parseInt(String(ch),10),
+                    });
 
-            readStream
-                .pipe(writeStream)
-                .on('error', error => reject(error))
-                .on('finish', () => resolve(tmpFile));
+                    readStream = readStream.pipe(sharpPipe)
+                        .on('error', err => reject(err));
+                }
+                readStream
+                    .pipe(writeStream)
+                    .on('error', error => reject(error))
+                    .on('finish', () => resolve(tmpFile));
 
-        });
+            });
+        } catch (e) {
+            throw new StorageException(e);
+        }
     }
 
     protected reset() {

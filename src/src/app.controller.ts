@@ -18,7 +18,7 @@ export class AppController {
         @Req() req,
         @Res() res,
     ) {
-        return new Promise((resolve, reject) => {
+        await new Promise((resolve, reject) => {
             this.uploadImage
                 .setFilename(uuid4())
                 .setCroppedPrefix('__cropped__')
@@ -29,6 +29,9 @@ export class AppController {
                     }
                     resolve(req.file);
                 });
-        })
+        });
+
+        res.code(200).send(true);
+        return ;
     }
 }
