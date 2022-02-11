@@ -30,7 +30,7 @@
     "class-transformer": "^0.2.3",
     "class-validator": "^0.11.0",
     "fastify-multer": "^1.5.2",
-    "fastify-multipart": "^1.0.4",
+    "fastify-multipart": "^5.3.1",
     "fs": "0.0.1-security",
     "multer-ftp": "^1.2.0",
     "multer-s3": "^2.9.0",
